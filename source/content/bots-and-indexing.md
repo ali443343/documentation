@@ -51,23 +51,47 @@ unix: - - [26/Jul/2013:15:26:37 +0000] "GET /index.php?q=gush/content/name-pimp-
 While Drupal and WordPress both generate their own `robots.txt` file by default, a custom or CMS-standard `robots.txt` will only work in Live environments of a paid site with a custom domain. It is important to note that each of your site environments have a `robots.txt` file associated with the [platform domain](/guides/domains) (e.g. `dev-site-name.pantheonsite.io`), or [custom Vanity domain](/guides/domains/vanity-domains) (e.g. `dev-sites.myagency.com`), that contains the following:
 
 ```none:title=robots.txt
-# Pantheon's documentation on robots.txt: https://docs.pantheon.io/bots-and-indexing/
-User-agent: *
+# Block specific crawlers
+User-agent: RavenCrawler
 Disallow: /
 
-User-agent: RavenCrawler
 User-agent: rogerbot
+Disallow: /
+
 User-agent: dotbot
+Disallow: /
+
 User-agent: SemrushBot
+Disallow: /
+
 User-agent: SiteAuditBot
+Disallow: /
+
 User-agent: SplitSignalBot
+Disallow: /
+
 User-agent: PowerMapper
+Disallow: /
+
 User-agent: Swiftbot
+Disallow: /
+
 User-agent: lyticsbot
+Disallow: /
+
 User-agent: Dubbotbot
+Disallow: /
+
 User-agent: PopeTech-CrawlBot
+Disallow: /
+
 User-agent: PopeTech-ScanBot
-Allow: /
+Disallow: /
+
+# Allow all other bots (including Googlebot, Bingbot, etc.)
+User-agent: *
+Disallow:
+
 ```
 
 Additionally, Pantheon's edge layer adds the [`X-Robots-Tag: noindex` HTTP header](https://developers.google.com/search/reference/robots_meta_tag) when serving requests from platform domains (e.g. `live-site-name.pantheonsite.io`). This instructs most bots/crawlers not to index the page and prevents it from being returned in search results.
